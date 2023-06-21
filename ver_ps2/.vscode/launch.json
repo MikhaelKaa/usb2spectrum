@@ -1,0 +1,23 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Cortex Debug",
+			"cwd": "${workspaceRoot}",
+			"executable": "./build/usbkb.elf",
+			"svdFile": "./STM32L4x6.svd",
+			"request": "launch",
+			"type": "cortex-debug",
+			"servertype": "openocd",
+			"device": "stlink",
+			//"device": "Cortex-M4",
+			"interface": "swd",
+			//"ipAddress": null,
+			//"serialNumber": null,
+			"configFiles": [
+				"interface/stlink.cfg",
+				"target/stm32l4x.cfg"
+			]
+		}
+	]
+}

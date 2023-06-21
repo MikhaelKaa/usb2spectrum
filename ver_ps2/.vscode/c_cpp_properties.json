@@ -1,0 +1,38 @@
+{
+    "configurations": [
+        {
+            "name": "arm_c_cpp_properties",
+            "compilerPath": "C:/arm_tool/gcc/bin/arm-none-eabi-gcc.exe",
+            "includePath": [
+                "C:/arm_tool/gcc/arm-none-eabi/include",
+                "C:/arm_tool/gcc/arm-none-eabi/include/sys/",
+                "C:/arm_tool/gcc/lib/**",
+                "${workspaceRoot}\\Drivers\\**",
+                "${workspaceRoot}\\Core\\Src\\**",
+                "${workspaceRoot}\\Core\\Inc\\**",
+                "${workspaceRoot}\\USB_HOST\\App\\**",
+                "${workspaceRoot}\\App\\Retarget\\**",
+                "${workspaceRoot}\\App\\Spectrum\\**",
+                //"${workspaceRoot}\\Middlewares\\**",
+                "${workspaceRoot}\\Middlewares\\ST\\STM32_USB_Host_Library\\Class\\HID\\Src\\**",
+                "${workspaceRoot}\\Middlewares\\ST\\STM32_USB_Host_Library\\Class\\HID\\Inc\\**",
+                "${workspaceRoot}\\Middlewares\\ST\\STM32_USB_Host_Library\\Core\\Src\\**",
+                "${workspaceRoot}\\Middlewares\\ST\\STM32_USB_Host_Library\\Core\\Inc\\**",
+                "${workspaceRoot}\\USB_HOST\\Target\\**",
+                "${workspaceRoot}\\USB_HOST\\App\\**",
+                "${workspaceFolder}/App/ps2",
+                "${workspaceFolder}/App/sega_gamepad/inc"
+            ],
+            "defines": [
+                "USE_HAL_DRIVER",
+                "STM32L476xx",
+                "M4",
+                "GCC_ARMCM4"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}
