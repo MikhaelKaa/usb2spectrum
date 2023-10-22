@@ -6,3 +6,11 @@
 *.hex
 *.elf
 *.bin
+/spi2kb5x8_v/output_files
+/spi2kb5x8_v/incremental_db
+/spi2kb5x8_v/db
+*.bak
+/spi2kb5x8/db
+/spi2kb5x8/incremental_db
+/spi2kb5x8/output_files
+/spi2kb5x8/spi2kb5x8.qws
