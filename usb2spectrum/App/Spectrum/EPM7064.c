@@ -48,12 +48,12 @@ void epm_5x8_add(uint8_t code)
   epm_buf[3] |= table_5x8[code][3];
   epm_buf[4] |= table_5x8[code][4];
 
-  SP_DBG("USB key: %d\n", code);
-  SP_DBG("5x8 KD4: %d\n", table_5x8[code][0]);
-  SP_DBG("5x8 KD3: %d\n", table_5x8[code][1]);
-  SP_DBG("5x8 KD2: %d\n", table_5x8[code][2]);
-  SP_DBG("5x8 KD1: %d\n", table_5x8[code][3]);
-  SP_DBG("5x8 KD0: %d\n", table_5x8[code][4]);
+  SP_DBG("USB key: %d\r\n", code);
+  SP_DBG("5x8 KD4: %d\r\n", table_5x8[code][0]);
+  SP_DBG("5x8 KD3: %d\r\n", table_5x8[code][1]);
+  SP_DBG("5x8 KD2: %d\r\n", table_5x8[code][2]);
+  SP_DBG("5x8 KD1: %d\r\n", table_5x8[code][3]);
+  SP_DBG("5x8 KD0: %d\r\n", table_5x8[code][4]);
 }
 
 /**

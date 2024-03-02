@@ -247,7 +247,7 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-  //printf("error handler\r\n");
+  //printf("error handler\r\n\n");
   //printf_flush();
   //HAL_Delay(10);
   __disable_irq();

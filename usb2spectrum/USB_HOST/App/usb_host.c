@@ -78,7 +78,7 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
   if(USBH_HID_GetDeviceType(phost) == HID_GAMEPAD)
   {
       HID_GAMEPAD_Info_TypeDef *gamepad = USBH_HID_GetGamepadInfo(phost);
-      if (gamepad != 0) printf("%08X %08X\n", gamepad[0], gamepad[1]);
+      if (gamepad != 0) printf("GamePad: %08X %08X\r\n", gamepad[0], gamepad[1]);
 
   }
 
@@ -98,7 +98,7 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
     if (Y_Val > 127) Y_Val -= 255;
 
     // Отладочный вывод
-    printf ("event %d: X=%d, Y=%d, Button1=%d, Button2=%d, Button3=%d\n",mouse_event_cnt, X_Val, Y_Val, \
+    printf ("event %d: X=%d, Y=%d, Button1=%d, Button2=%d, Button3=%d\r\n",mouse_event_cnt, X_Val, Y_Val, \
             Mouse_Info->buttons[0],Mouse_Info->buttons[1], Mouse_Info->buttons[2]);
 
       if(Y_Val > gap) {HAL_GPIO_WritePin(DV1_GPIO_Port, DV1_Pin, GPIO_PIN_SET);}
@@ -119,7 +119,7 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
   // Если устройство клавиатура 
   if(USBH_HID_GetDeviceType(phost) == HID_KEYBOARD)
   {
-      USBH_UsrLog("Key 2\n");
+      USBH_UsrLog("Key 2\r\n");
     role = use_kbd;
     //uint8_t ext_key[2] = {0, 0};
     HID_KEYBD_Info_TypeDef *Keyboard_Info;
@@ -133,7 +133,7 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
 
     // Отладочный вывод
     #ifdef KEY_DBG
-    printf ("Keys array: = %d : %d : %d : %d : %d : %d\n", \
+    printf ("Keys array: = %d : %d : %d : %d : %d : %d\r\n", \
     Keyboard_Info->keys[0], Keyboard_Info->keys[1], Keyboard_Info->keys[2], \
     Keyboard_Info->keys[3], Keyboard_Info->keys[4], Keyboard_Info->keys[5]);
     #endif /* KEY_DBG */

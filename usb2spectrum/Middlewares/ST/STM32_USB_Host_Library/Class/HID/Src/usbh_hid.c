@@ -142,7 +142,7 @@ static USBH_StatusTypeDef USBH_HID_InterfaceInit(USBH_HandleTypeDef *phost)
   uint8_t num = 0U;
   uint8_t interface;
 
-  USBH_DbgLog("USBH_HID_InterfaceInit\n");
+  USBH_DbgLog("USBH_HID_InterfaceInit\r");
     interface = USBH_FindInterface(phost, 
           phost->pActiveClass->ClassCode, HID_BOOT_CODE, 0xFFU);
   
@@ -152,7 +152,7 @@ static USBH_StatusTypeDef USBH_HID_InterfaceInit(USBH_HandleTypeDef *phost)
           phost->pActiveClass->ClassCode, HID_GAMEPAD_BOOT_CODE, 0xFFU);
     if ((interface == 0xFFU) || (interface >= USBH_MAX_NUM_INTERFACES)) /* No Valid Interface */
     {
-      USBH_DbgLog("Cannot Find the interface for %s class.", phost->pActiveClass->Name);
+      USBH_DbgLog("Cannot Find the interface for %s class.\r", phost->pActiveClass->Name);
       return USBH_FAIL;
     }
   }
@@ -169,7 +169,7 @@ static USBH_StatusTypeDef USBH_HID_InterfaceInit(USBH_HandleTypeDef *phost)
 
   if (HID_Handle == NULL)
   {
-    USBH_DbgLog("Cannot allocate memory for HID Handle");
+    USBH_DbgLog("Cannot allocate memory for HID Handle\r");
     return USBH_FAIL;
   }
 
@@ -181,22 +181,22 @@ static USBH_StatusTypeDef USBH_HID_InterfaceInit(USBH_HandleTypeDef *phost)
   /*Decode Bootclass Protocol: Mouse or Keyboard*/
   if (phost->device.CfgDesc.Itf_Desc[interface].bInterfaceProtocol == HID_KEYBRD_BOOT_CODE)
   {
-    USBH_UsrLog("KeyBoard device found!");
+    USBH_UsrLog("KeyBoard device found!\r");
     HID_Handle->Init = USBH_HID_KeybdInit;
   }
   else if (phost->device.CfgDesc.Itf_Desc[interface].bInterfaceProtocol  == HID_MOUSE_BOOT_CODE)
   {
-    USBH_UsrLog("Mouse device found!");
+    USBH_UsrLog("Mouse device found!\r");
     HID_Handle->Init = USBH_HID_MouseInit;
   }
   else if (phost->device.CfgDesc.Itf_Desc[interface].bInterfaceProtocol  == HID_GAMEPAD_BOOT_CODE)
   {
-    USBH_UsrLog("Joystick device found!");
+    USBH_UsrLog("Joystick device found!\r");
     HID_Handle->Init = USBH_HID_KeybdInit;
   }
   else
   {
-    USBH_UsrLog("Protocol not supported.");
+    USBH_UsrLog("Protocol not supported.\r");
     return USBH_FAIL;
   }
 
