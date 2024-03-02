@@ -37,6 +37,40 @@ typedef struct _HID_GAMEPAD_Info
 HID_GAMEPAD_Info_TypeDef;
 
 
+typedef struct GAMEPAD_Keys
+{
+  uint8_t  data_nc0;
+  uint8_t  data_nc1;
+  uint8_t  data_nc2;
+  uint8_t  axis_x;
+
+  uint8_t  axis_y;
+
+  unsigned  data_nc3  :1;
+  unsigned  data_nc4  :1;
+  unsigned  data_nc5  :1;
+  unsigned  data_nc6  :1;
+
+  unsigned  button_1  :1;
+  unsigned  button_2  :1;
+  unsigned  button_3  :1;
+  unsigned  button_4  :1;
+
+  unsigned  left_1  :1;
+  unsigned  right_1 :1;
+  unsigned  left_2  :1;
+  unsigned  right_2 :1;
+
+  unsigned  button_stop:1;
+  unsigned  button_play:1;
+  unsigned  button_nc0:1;
+  unsigned  button_nc1:1;
+
+  uint8_t  data_nc7;
+}
+GAMEPAD_Keys_TypeDef;
+
+
 /** @addtogroup USBH_LIB
   * @{
   */

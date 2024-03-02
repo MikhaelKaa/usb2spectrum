@@ -77,9 +77,59 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
 
   if(USBH_HID_GetDeviceType(phost) == HID_GAMEPAD)
   {
-      HID_GAMEPAD_Info_TypeDef *gamepad = USBH_HID_GetGamepadInfo(phost);
-      if (gamepad != 0) printf("GamePad: %08X %08X\r\n", gamepad[0], gamepad[1]);
+    // HID_GAMEPAD_Info_TypeDef *gamepad = USBH_HID_GetGamepadInfo(phost);
+    // if (gamepad != 0) printf("GamePad: %08X %08X\r\n", gamepad[0], gamepad[1]);
+    static GAMEPAD_Keys_TypeDef gp_old;
+    GAMEPAD_Keys_TypeDef *gp = USBH_HID_GetGamepadInfo(phost);//(GAMEPAD_Keys_TypeDef*)gamepad;
+    // printf("GamePad raw data: %08X %08X\r\n", gp[0], gp[1]);
+    // printf("gamepad.axis_y %d\r\n", gp->axis_y);
+    // printf("gamepad.axis_x %d\r\n", gp->axis_x);
+    // printf("gamepad.left_1 %d\r\n", gp->left_1);
+    // printf("gamepad.right_1 %d\r\n", gp->right_1);
+    // printf("gamepad.left_2 %d\r\n", gp->left_2);
+    // printf("gamepad.right_2 %d\r\n", gp->right_2);
 
+    // printf("gamepad.button_1 %d\r\n", gp->button_1);
+    // printf("gamepad.button_2 %d\r\n", gp->button_2);
+    // printf("gamepad.button_3 %d\r\n", gp->button_3);
+    // printf("gamepad.button_4 %d\r\n", gp->button_4);
+
+    const uint8_t axis_gap = 10;
+    if(memcmp(&gp_old, gp, sizeof(gp_old))) {
+      if(gp->left_2 == 1) {
+        if(gp->axis_x < 127) epm_5x8_add(KEY_5_PERCENT);
+        if(gp->axis_x > 127) epm_5x8_add(KEY_8_ASTERISK);
+        if(gp->axis_y < 127) epm_5x8_add(KEY_7_AMPERSAND);
+        if(gp->axis_y > 127) epm_5x8_add(KEY_6_CARET);
+        epm_5x8_add(KEY_LEFTCONTROL);
+      } else {
+        if(gp->axis_x < 127) epm_5x8_add(KEY_6_CARET);
+        if(gp->axis_x > 127) epm_5x8_add(KEY_7_AMPERSAND);
+        if(gp->axis_y < 127) epm_5x8_add(KEY_9_OPARENTHESIS);
+        if(gp->axis_y > 127) epm_5x8_add(KEY_8_ASTERISK);
+      }
+
+      if(gp->left_1 == 1) {
+        epm_5x8_add(KEY_LEFTCONTROL);
+        epm_5x8_add(KEY_1_EXCLAMATION_MARK);
+      }
+      if(gp->right_2 == 1) epm_5x8_add(KEY_ENTER);
+      if(gp->right_1 == 1) epm_5x8_add(KEY_R);
+
+      if(gp->button_2 == 1) epm_5x8_add(KEY_0_CPARENTHESIS);
+      if(gp->button_1 == 1) epm_5x8_add(KEY_9_OPARENTHESIS);
+
+      if(gp->button_play == 1) epm_5x8_add(KEY_P);
+      if(gp->button_stop == 1) {
+        epm_5x8_add(KEY_LEFTCONTROL);
+        epm_5x8_add(KEY_SPACEBAR);
+      }
+      epm_5x8_flush();
+      if(gp->left_1 == 1 && gp->left_2 == 1 && gp->right_1 == 1 && gp->right_2 == 1) {
+        opt_reset();
+      }
+    }
+    memcpy(&gp_old, gp, sizeof(gp_old));
   }
 
   // Если устройство мышь
