@@ -33,14 +33,14 @@ void opt_update(void)
   if(reset == 0) {
     reset--;
     HAL_GPIO_WritePin(RESET_GPIO_Port, RESET_Pin, GPIO_PIN_RESET);
-    SP_DBG("Break button RESET\n");
+    SP_DBG("Break button RESET\r\n");
   }
 
   if(magic > 0) magic--;
   if(magic == 0) {
     magic--;
     HAL_GPIO_WritePin(MAGIC_GPIO_Port, MAGIC_Pin, GPIO_PIN_SET);
-    SP_DBG("Break button NMI\n");
+    SP_DBG("Break button NMI\r\n");
   }
 }
 
@@ -51,7 +51,7 @@ void opt_update(void)
 void opt_reset(void)
 {
   HAL_GPIO_WritePin(RESET_GPIO_Port, RESET_Pin, GPIO_PIN_SET);
-  SP_DBG("Make button RESET: %d\n", OPT_RESET);
+  SP_DBG("Make button RESET: %d\r\n", OPT_RESET);
   reset = OPT_RESET;
 }
 
@@ -62,6 +62,6 @@ void opt_reset(void)
 void opt_nmi(void)
 {
   HAL_GPIO_WritePin(MAGIC_GPIO_Port, MAGIC_Pin, GPIO_PIN_RESET);
-  SP_DBG("Make button NMI: %d\n", OPT_NMI);
+  SP_DBG("Make button NMI: %d\r\n", OPT_NMI);
   magic = OPT_NMI;
 }

@@ -77,6 +77,7 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
 
   if(USBH_HID_GetDeviceType(phost) == HID_GAMEPAD)
   {
+    role = use_gamepad;
     // HID_GAMEPAD_Info_TypeDef *gamepad = USBH_HID_GetGamepadInfo(phost);
     // if (gamepad != 0) printf("GamePad: %08X %08X\r\n", gamepad[0], gamepad[1]);
     static GAMEPAD_Keys_TypeDef gp_old;
@@ -94,6 +95,29 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
     // printf("gamepad.button_3 %d\r\n", gp->button_3);
     // printf("gamepad.button_4 %d\r\n", gp->button_4);
 
+
+    #define KEMPSTON_UP     DV3_GPIO_Port, DV3_Pin
+    #define KEMPSTON_DOWN   DV2_GPIO_Port, DV2_Pin
+    #define KEMPSTON_LEFT   DV1_GPIO_Port, DV1_Pin
+    #define KEMPSTON_RIGHT  DV0_GPIO_Port, DV0_Pin
+    #define KEMPSTON_FIRE   DV4_GPIO_Port, DV4_Pin
+    // Kempston
+      if((gp->axis_y < 127) || (gp->button_1 == 1)) {HAL_GPIO_WritePin(KEMPSTON_UP, GPIO_PIN_SET);}
+      else {HAL_GPIO_WritePin(KEMPSTON_UP, GPIO_PIN_RESET);}
+
+      if((gp->axis_y > 127) ) {HAL_GPIO_WritePin(KEMPSTON_DOWN, GPIO_PIN_SET);}
+      else {HAL_GPIO_WritePin(KEMPSTON_DOWN, GPIO_PIN_RESET);}
+
+      if((gp->axis_x < 127) ) {HAL_GPIO_WritePin(KEMPSTON_LEFT, GPIO_PIN_SET);}
+      else {HAL_GPIO_WritePin(KEMPSTON_LEFT, GPIO_PIN_RESET);}
+
+      if((gp->axis_x > 127) ) {HAL_GPIO_WritePin(KEMPSTON_RIGHT, GPIO_PIN_SET);}
+      else {HAL_GPIO_WritePin(KEMPSTON_RIGHT, GPIO_PIN_RESET);} 
+
+      if(gp->button_2 == 1) {HAL_GPIO_WritePin(KEMPSTON_FIRE, GPIO_PIN_SET);}
+      else {HAL_GPIO_WritePin(KEMPSTON_FIRE, GPIO_PIN_RESET);}
+
+    // Keyboard
     const uint8_t axis_gap = 10;
     if(memcmp(&gp_old, gp, sizeof(gp_old))) {
       if(gp->left_2 == 1) {
@@ -113,11 +137,12 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
         epm_5x8_add(KEY_LEFTCONTROL);
         epm_5x8_add(KEY_1_EXCLAMATION_MARK);
       }
+
       if(gp->right_2 == 1) epm_5x8_add(KEY_ENTER);
       if(gp->right_1 == 1) epm_5x8_add(KEY_R);
 
       if(gp->button_2 == 1) epm_5x8_add(KEY_0_CPARENTHESIS);
-      if(gp->button_1 == 1) epm_5x8_add(KEY_9_OPARENTHESIS);
+      if(gp->button_1 == 1) epm_5x8_add(KEY_9_OPARENTHESIS); 
 
       if(gp->button_play == 1) epm_5x8_add(KEY_P);
       if(gp->button_stop == 1) {
@@ -125,6 +150,9 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
         epm_5x8_add(KEY_SPACEBAR);
       }
       epm_5x8_flush();
+      if(gp->left_1 == 1 && gp->left_2 == 1) {
+        opt_nmi();
+      }
       if(gp->left_1 == 1 && gp->left_2 == 1 && gp->right_1 == 1 && gp->right_2 == 1) {
         opt_reset();
       }

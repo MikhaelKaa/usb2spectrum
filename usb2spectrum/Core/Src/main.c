@@ -104,6 +104,8 @@ int main(void)
   printf("Device start!\r\n");
   epm_init();
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  HAL_GPIO_WritePin(RESET_GPIO_Port, RESET_Pin, GPIO_PIN_RESET);
+  printf("Break button RESET\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
