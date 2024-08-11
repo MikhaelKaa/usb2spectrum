@@ -78,10 +78,9 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
   if(USBH_HID_GetDeviceType(phost) == HID_GAMEPAD)
   {
     role = use_gamepad;
-    // HID_GAMEPAD_Info_TypeDef *gamepad = USBH_HID_GetGamepadInfo(phost);
-    // if (gamepad != 0) printf("GamePad: %08X %08X\r\n", gamepad[0], gamepad[1]);
     static GAMEPAD_Keys_TypeDef gp_old;
-    GAMEPAD_Keys_TypeDef *gp = USBH_HID_GetGamepadInfo(phost);//(GAMEPAD_Keys_TypeDef*)gamepad;
+    GAMEPAD_Keys_TypeDef *gp = USBH_HID_GetGamepadInfo(phost);
+
     // printf("GamePad raw data: %08X %08X\r\n", gp[0], gp[1]);
     // printf("gamepad.axis_y %d\r\n", gp->axis_y);
     // printf("gamepad.axis_x %d\r\n", gp->axis_x);
@@ -94,7 +93,6 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
     // printf("gamepad.button_2 %d\r\n", gp->button_2);
     // printf("gamepad.button_3 %d\r\n", gp->button_3);
     // printf("gamepad.button_4 %d\r\n", gp->button_4);
-
 
     #define KEMPSTON_UP     DV3_GPIO_Port, DV3_Pin
     #define KEMPSTON_DOWN   DV2_GPIO_Port, DV2_Pin

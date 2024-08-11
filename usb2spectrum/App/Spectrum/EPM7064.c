@@ -66,4 +66,8 @@ void epm_5x8_flush(void)
   EPM_TRANSMIT(EPM_SPI_PORT, epm_buf, EPM_5X8_SIZE);
   // Очистка массива кнопок.
   memset(epm_buf, 0x00, EPM_5X8_SIZE);
+  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+  HAL_Delay(2);
+  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+  
 }

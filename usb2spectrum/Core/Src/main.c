@@ -128,7 +128,7 @@ int main(void)
     // Моргаем светодиодом, если подключен USB.
     if(hUsbHostFS.device.is_connected) {
       if(!(i++%16384)) {
-        HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+        //HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
         opt_update();
       }
     }

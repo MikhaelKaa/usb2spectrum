@@ -46,7 +46,8 @@ extern int mouse_event_cnt;
 typedef enum dev_role{
   use_none = 0,
   use_mouse,
-  use_kbd
+  use_kbd,
+  use_gamepad
 } dev_role_t;
 extern dev_role_t role;
 
