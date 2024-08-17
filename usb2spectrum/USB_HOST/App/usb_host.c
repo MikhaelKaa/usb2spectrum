@@ -24,7 +24,7 @@
 #include "usb_host.h"
 #include "usbh_core.h"
 #include "usbh_hid.h"
-
+#include <inttypes.h>
 /* USER CODE BEGIN Includes */
 #include "spectrum.h"
 /* USER CODE END Includes */
@@ -37,6 +37,28 @@
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 extern dev_role_t role;
+char gp_logo[] = "        . . . . .                     . . . . . \r\n\
+      .  _______  .                 .  _______  .\r\n\
+      . |left_2 | .                 . |right_2| .\r\n\
+      .  _______    . . . . . . . .    _______  .\r\n\
+      . |left_1 |      Defender       |right_1| .\r\n\
+    .                                              .\r\n\
+   .    _             clear                (1)       .\r\n\
+  .   _| |_     turbo   O    auto                      .\r\n\
+  .  |_   _|      O           O      (4)         (2)   .\r\n\
+   .   |_|                                            .\r\n\
+    .               =       >              (3)       .\r\n\
+      .           stop(9)   play(10)              .\r\n\
+          .    .    .   .    .     .    .     .\r\n\
+                      with autofire\r\n";
+
+volatile int USBH_HID_GamepadDecode_flag = -1;
+static GAMEPAD_Keys_TypeDef0 gp_last0;
+static GAMEPAD_Keys_TypeDef0 gp_last1;
+
+const uint64_t gp_defender_old_ptrn = 0x7f80800100000f7f;
+const uint64_t gp_defender_new_ptrn = 0x80007f7f00000f80;
+const uint8_t axis_gap = 10;
 /* USER CODE END PFP */
 
 /* USB Host core handle declaration */
@@ -70,35 +92,14 @@ void static inline set_kempston_by_kbd(GPIO_TypeDef* port, uint16_t pin, HID_KEY
   }
 }
 
-
-void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
-{
-  // https://controllerstech.com/stm32-usb-host-hid/
-
-  if(USBH_HID_GetDeviceType(phost) == HID_GAMEPAD)
-  {
-    role = use_gamepad;
-    static GAMEPAD_Keys_TypeDef gp_old;
-    GAMEPAD_Keys_TypeDef *gp = USBH_HID_GetGamepadInfo(phost);
-
-    // printf("GamePad raw data: %08X %08X\r\n", gp[0], gp[1]);
-    // printf("gamepad.axis_y %d\r\n", gp->axis_y);
-    // printf("gamepad.axis_x %d\r\n", gp->axis_x);
-    // printf("gamepad.left_1 %d\r\n", gp->left_1);
-    // printf("gamepad.right_1 %d\r\n", gp->right_1);
-    // printf("gamepad.left_2 %d\r\n", gp->left_2);
-    // printf("gamepad.right_2 %d\r\n", gp->right_2);
-
-    // printf("gamepad.button_1 %d\r\n", gp->button_1);
-    // printf("gamepad.button_2 %d\r\n", gp->button_2);
-    // printf("gamepad.button_3 %d\r\n", gp->button_3);
-    // printf("gamepad.button_4 %d\r\n", gp->button_4);
-
     #define KEMPSTON_UP     DV3_GPIO_Port, DV3_Pin
     #define KEMPSTON_DOWN   DV2_GPIO_Port, DV2_Pin
     #define KEMPSTON_LEFT   DV1_GPIO_Port, DV1_Pin
     #define KEMPSTON_RIGHT  DV0_GPIO_Port, DV0_Pin
     #define KEMPSTON_FIRE   DV4_GPIO_Port, DV4_Pin
+
+void type_0(GAMEPAD_Keys_TypeDef0 *gp) {
+
     // Kempston
       if((gp->axis_y < 127) || (gp->button_1 == 1)) {HAL_GPIO_WritePin(KEMPSTON_UP, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_UP, GPIO_PIN_RESET);}
@@ -116,8 +117,8 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
       else {HAL_GPIO_WritePin(KEMPSTON_FIRE, GPIO_PIN_RESET);}
 
     // Keyboard
-    const uint8_t axis_gap = 10;
-    if(memcmp(&gp_old, gp, sizeof(gp_old))) {
+    if(memcmp(&gp_last0, gp, sizeof(gp_last0))) {
+
       if(gp->left_2 == 1) {
         if(gp->axis_x < 127) epm_5x8_add(KEY_5_PERCENT);
         if(gp->axis_x > 127) epm_5x8_add(KEY_8_ASTERISK);
@@ -154,8 +155,145 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
       if(gp->left_1 == 1 && gp->left_2 == 1 && gp->right_1 == 1 && gp->right_2 == 1) {
         opt_reset();
       }
+      printf("GamePad type 0 raw data:  0x%08x%08x\r\n", gp[0], gp[1]);
     }
-    memcpy(&gp_old, gp, sizeof(gp_old));
+    memcpy(&gp_last0, gp, sizeof(gp_last0));
+}
+
+void type_1(GAMEPAD_Keys_TypeDef1 *gp) {
+    // Kempston
+      if((gp->axis_y < 127) || (gp->button_1 == 1)) {HAL_GPIO_WritePin(KEMPSTON_UP, GPIO_PIN_SET);}
+      else {HAL_GPIO_WritePin(KEMPSTON_UP, GPIO_PIN_RESET);}
+
+      if((gp->axis_y > 127) ) {HAL_GPIO_WritePin(KEMPSTON_DOWN, GPIO_PIN_SET);}
+      else {HAL_GPIO_WritePin(KEMPSTON_DOWN, GPIO_PIN_RESET);}
+
+      if((gp->axis_x < 127) ) {HAL_GPIO_WritePin(KEMPSTON_LEFT, GPIO_PIN_SET);}
+      else {HAL_GPIO_WritePin(KEMPSTON_LEFT, GPIO_PIN_RESET);}
+
+      if((gp->axis_x > 127) ) {HAL_GPIO_WritePin(KEMPSTON_RIGHT, GPIO_PIN_SET);}
+      else {HAL_GPIO_WritePin(KEMPSTON_RIGHT, GPIO_PIN_RESET);} 
+
+      if(gp->button_2 == 1) {HAL_GPIO_WritePin(KEMPSTON_FIRE, GPIO_PIN_SET);}
+      else {HAL_GPIO_WritePin(KEMPSTON_FIRE, GPIO_PIN_RESET);}
+
+    // Keyboard
+    
+    if(memcmp(&gp_last1, gp, sizeof(gp_last1))) {
+
+      if(gp->left_2 == 1) {
+        if(gp->axis_x < 127) epm_5x8_add(KEY_5_PERCENT);
+        if(gp->axis_x > 127) epm_5x8_add(KEY_8_ASTERISK);
+        if(gp->axis_y < 127) epm_5x8_add(KEY_7_AMPERSAND);
+        if(gp->axis_y > 127) epm_5x8_add(KEY_6_CARET);
+        epm_5x8_add(KEY_LEFTCONTROL);
+      } else {
+        if(gp->axis_x < 127) epm_5x8_add(KEY_6_CARET);
+        if(gp->axis_x > 127) epm_5x8_add(KEY_7_AMPERSAND);
+        if(gp->axis_y < 127) epm_5x8_add(KEY_9_OPARENTHESIS);
+        if(gp->axis_y > 127) epm_5x8_add(KEY_8_ASTERISK);
+      }
+
+      if(gp->left_1 == 1) {
+        epm_5x8_add(KEY_LEFTCONTROL);
+        epm_5x8_add(KEY_1_EXCLAMATION_MARK);
+      }
+
+      if(gp->right_2 == 1) epm_5x8_add(KEY_ENTER);
+      if(gp->right_1 == 1) epm_5x8_add(KEY_R);
+
+      if(gp->button_2 == 1) epm_5x8_add(KEY_0_CPARENTHESIS);
+      if(gp->button_1 == 1) epm_5x8_add(KEY_9_OPARENTHESIS); 
+
+      if(gp->button_play == 1) epm_5x8_add(KEY_P);
+      if(gp->button_stop == 1) {
+        epm_5x8_add(KEY_LEFTCONTROL);
+        epm_5x8_add(KEY_SPACEBAR);
+      }
+      epm_5x8_flush();
+      if(gp->left_1 == 1 && gp->left_2 == 1) {
+        //opt_nmi();
+      }
+      if(gp->left_1 == 1 && gp->left_2 == 1 && gp->right_1 == 1 && gp->right_2 == 1) {
+        //opt_reset();
+      }
+      printf("GamePad type 1 raw data:  0x%08x%08x\r\n", gp[0], gp[1]);
+    }
+    memcpy(&gp_last1, gp, sizeof(gp_last1));
+}
+
+void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
+{
+  // https://controllerstech.com/stm32-usb-host-hid/
+
+  if(USBH_HID_GetDeviceType(phost) == HID_GAMEPAD)
+  {
+    role = use_gamepad;
+    uint32_t *p = USBH_HID_GetGamepadInfo(phost);
+    GAMEPAD_Keys_TypeDef0 *gp0 = p;
+    GAMEPAD_Keys_TypeDef1 *gp1 = p;
+
+    // detect
+    if(-1 == USBH_HID_GamepadDecode_flag ) {
+    printf("\r\n <------> Game pad detect start.\r\n");
+    printf("GamePad raw data:  0x%08x%08x\r\n", p[0], p[1]);
+
+    if(p[0] == 0x7F808001 && p[1] == 0x00000F7F){
+      USBH_HID_GamepadDecode_flag = 0;
+      printf("\r\n%s", gp_logo);
+      printf("hit %d\r\n", USBH_HID_GamepadDecode_flag);
+      return;
+    }
+
+    if(p[0] == 0x80007F7F && p[1] == 0x00000F80) {
+      USBH_HID_GamepadDecode_flag = 1;
+      printf("\r\n%s", gp_logo);
+      printf("hit %d\r\n", USBH_HID_GamepadDecode_flag);
+      return;
+    }
+    USBH_HID_GamepadDecode_flag = -2;
+    printf("hit unknown %d\r\n", USBH_HID_GamepadDecode_flag);
+      return;
+    }
+
+
+    // proc
+    switch (USBH_HID_GamepadDecode_flag)
+    {
+    case -2: // unknown
+      return;
+      break;
+
+    case -1: // no init
+      return;
+      break;
+
+    case 0: // old
+      type_0(gp0);
+      break;
+
+    case 1: // new
+      type_1(gp1);
+      break;
+    
+    default:
+      break;
+    }
+
+  //return;
+    // printf("gamepad.axis_y %d\r\n", gp->axis_y);
+    // printf("gamepad.axis_x %d\r\n", gp->axis_x);
+    // printf("gamepad.left_1 %d\r\n", gp->left_1);
+    // printf("gamepad.right_1 %d\r\n", gp->right_1);
+    // printf("gamepad.left_2 %d\r\n", gp->left_2);
+    // printf("gamepad.right_2 %d\r\n", gp->right_2);
+
+    // printf("gamepad.button_1 %d\r\n", gp->button_1);
+    // printf("gamepad.button_2 %d\r\n", gp->button_2);
+    // printf("gamepad.button_3 %d\r\n", gp->button_3);
+    // printf("gamepad.button_4 %d\r\n", gp->button_4);
+
+
   }
 
   // Если устройство мышь

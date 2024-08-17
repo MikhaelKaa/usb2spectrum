@@ -11,7 +11,7 @@
  * @copyright Copyright (c) 2021
  * 
  */
-
+#include <stdio.h>
 #include "spectrum.h"
 
 /**
@@ -19,7 +19,7 @@
  * Настройка отладочного вывода.
  * 0U - отключен, 1U - включен
  */
-#define SPECTRUM_DEBUG_LEVEL   1U
+#define SPECTRUM_DEBUG_LEVEL   0U
 #if (SPECTRUM_DEBUG_LEVEL == 1U)
 #define  SP_DBG(...)   do {printf(__VA_ARGS__);} while (0)
 #else

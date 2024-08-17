@@ -783,7 +783,8 @@ USBH_StatusTypeDef  USBH_Process(USBH_HandleTypeDef *phost)
         phost->pUser(phost, HOST_USER_DISCONNECTION);
       }
       USBH_UsrLog("USB Device disconnected");
-
+extern volatile int USBH_HID_GamepadDecode_flag;
+USBH_HID_GamepadDecode_flag = -1;
       if (phost->device.is_ReEnumerated == 1U)
       {
         phost->device.is_ReEnumerated = 0U;

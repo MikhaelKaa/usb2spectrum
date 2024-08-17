@@ -203,6 +203,8 @@ uint8_t *USBH_HID_GetGamepadInfo(USBH_HandleTypeDef *phost)
     }
 }
 
+
+
 /**
   * @brief  USBH_HID_gamepadDecode
   *         The function decode gamepad data.
@@ -221,9 +223,23 @@ static USBH_StatusTypeDef USBH_HID_GamepadDecode(USBH_HandleTypeDef *phost)
     if(USBH_HID_FifoRead(&HID_Handle->fifo, &gamepad_report_data, HID_Handle->length) ==  HID_Handle->length)
     {
     
-        //USBH_UsrLog("%08X %08X\n", gamepad_report_data[0], gamepad_report_data[1]);
         gamepad_data.data_0 = gamepad_report_data[0];
         gamepad_data.data_1 = gamepad_report_data[1];
+        // if(-1 != USBH_HID_GamepadDecode_flag ) {
+        // printf("\r\n\r\n%08lX %08lX\r\n", gamepad_report_data[0], gamepad_report_data[1]);
+        //   if(gamepad_report_data[0] == 0x7F808001 && gamepad_report_data[1] == 0x00000F7F)
+        //   {
+        //     printf("hit 0\r\n");
+        //     USBH_HID_GamepadDecode_flag = 0;
+        //   }
+ 
+        //   if(gamepad_report_data[0] == 0x80007F7F && gamepad_report_data[1] == 0x00000F80)
+        //   {
+        //     printf("hit 1\r\n");
+        //     USBH_HID_GamepadDecode_flag = 1;
+        //   }
+
+        // }
         
         return USBH_OK;
     }
