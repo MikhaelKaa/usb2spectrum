@@ -209,7 +209,7 @@ void type_0(GAMEPAD_Keys_TypeDef0 *gp) {
       if(gp->left_1 == 1 && gp->left_2 == 1 && gp->right_1 == 1 && gp->right_2 == 1) {
         opt_reset();
       }
-      printf("GamePad type 0 raw data:  0x%08x%08x\r\n", gp[0], gp[1]);
+      printf("GamePad t0 raw: 0x%08x%08x\r\n", gp[0], gp[1]);
     }
     memcpy(&gp_last0, gp, sizeof(gp_last0));
 }
@@ -271,7 +271,7 @@ void type_1(GAMEPAD_Keys_TypeDef1 *gp) {
       if(gp->left_1 == 1 && gp->left_2 == 1 && gp->right_1 == 1 && gp->right_2 == 1) {
         opt_reset();
       }
-      printf("GamePad type 1 raw data:  0x%08x%08x\r\n", gp[0], gp[1]);
+      printf("GamePad t1 raw: 0x%08x%08x\r\n", gp[0], gp[1]);
     }
     memcpy(&gp_last1, gp, sizeof(gp_last1));
 }
