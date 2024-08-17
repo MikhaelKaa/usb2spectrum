@@ -37,7 +37,7 @@
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 extern dev_role_t role;
-char gp_logo[] = "        . . . . .                     . . . . . \r\n\
+char gp_logo0[] = "        . . . . .                     . . . . . \r\n\
       .  _______  .                 .  _______  .\r\n\
       . |left_2 | .                 . |right_2| .\r\n\
       .  _______    . . . . . . . .    _______  .\r\n\
@@ -51,6 +51,60 @@ char gp_logo[] = "        . . . . .                     . . . . . \r\n\
       .           stop(9)   play(10)              .\r\n\
           .    .    .   .    .     .    .     .\r\n\
                       with autofire\r\n";
+
+
+
+// char gp_logo1[] = "                                                        .OW0o'\r\n\     
+//                                                         'kXkc.                                                          \r\n\
+//                                                        .ck0xl'                                                          \r\n\
+//                                                        :O000Ol.                                                         \r\n\     
+//                                                       .lO0000d.                                                         \r\n\
+//                                                       .lO0000x.                                                         \r\n\
+//                                                       .oO0000x'                        ..',,,,,''...                    \r\n\
+//                  .,;:::cccc::;,.                     .,dO0000k;..                   .,lxxkkkkkkkkxxd:..                 \r\n\
+//               .'cxkkkkkkkkkkkkko'              ..,:lodxxkkkkkxxdooc;...            'okkkkkkkkkkkOOkkkko'                \r\n\
+//              .lxOOOOOOkOOkkOkkkOkl.         .,coxkkOOOOOOkkkOOkkkkkkkdo:.........':dkkkkkkkkkkkkkkkkkkkl.               \r\n\
+//             .:dOOOOOOkkOkkkkkkkkkkdllllllc;:oxkkOOOOkkkkkkkkkkkkkkkkkkkkxoldxxxkkkkkkkkkkkkkkkkkkkkkkxkd'               \r\n\
+//             .lxkkkkkkkkkkkkkkkkkkkxxkkkkxoodkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkxkkkkkkkkkkkkkkkkkkkkkkkkkkkxl.              \r\n\
+//            .;oxxkkOOOOOkkkkkkkkkkkkxxxxxxxkkOOkkkkkkkkkkkkkkkkkxxkkkkkkkOOkOkkkkxxxkkkOOkkkkOOOOOkkkkkOkkd;.            \r\n\
+//          .;lxkOOOOOOOOOOOkkkkkkkkkkkxxkkkkkO00Oxc;;co::c::cccclc;:coxkO000OkkkkxxxkOkkkkkOOOOOOOOOOkkkkkkkkkl.          \r\n\
+//        .:dkOOOOO0KK0000KKKKK00kkkkkkkOOkkkkOOOkxc;;cc:;;::;:c::c:;:lxkkOOkkkkdoxkkkkkkkkO0OOOkdkOO0Okkkkkkkkkx:.        \r\n\
+//       ,lxOOOO00OxxdxO00OOO00KKK0OkkkkkOOkkkkkkkkxxxkkkkkkkkkkkkkkkkkkkkkkkkxookOkkkkkkkkO00O0OxkOO0Okkkkkkkkkkkl.       \r\n\
+//      ,okOOO0KOoclokKNNNNX0kkOO00K0kxxxkkOkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkxookkkkkkkkkkkk0XXKOkxk0OkkkkkkkkkkkkOo.      \r\n\
+//     ,okOOO0KxodxxOXNNNNNNX0kkOOO000kkkkkkOkkkkkkkkOOOkkkkkkkkkkOOOOOOOOOOkdoxOkkkOOOOOkkkkO0K0OkOOkkkkOOOOOOOkOOOc      \r\n\
+//    .lxOOO0KxokOOKXXNXXNNXXK0kkkO0000kkkxkOOOOOOOOOOOOxloolllccokOOOOOOOOOkodkkOOOOOkOO0OOkkkkkkkkkkkO00kddxOOOOkOx,     \r\n\
+//   .:dkOOOXOlxOO0KKXXXNNX0Okxdddk0KK0OkkkkkO0Odoollllodkko;:dOkOkoloooodO0koxkO00OkxdxkO00OOOOOOOOOOO00OkoclkO0OkkOl.    \r\n\
+//   .cxOOO0XkoOOkkOOOOO0kooooooodk0XXK0OOOkkO00kxdlcodxk00o.'d000Oxdl:ldk00OxkOOKK0Okxxkk00OOOOOOOOOOOKK0OocdkO00kOOo.    \r\n\
+//   'lkOOO0X0OXKOkxxkkkkdooooodOKOOXNK0OOOOk00000x,.l000000kk00000KO:.,kK000OkOO0XXK0OkkO0OOOOOOOOOOOO0XXKOxodO0OOOkl.    \r\n\
+//   'lkOOOOKKKNNX0OkkkkkkkxdxO0KKO0NNKOOOOOO0K000Oocx0K000000000KKK0dlx0K00K0OOOOOKKKK0OOOOOOOOO000OOOOO0K0OkOOOOOOkl,.   \r\n\
+//  .;okOO0O0KKXNNXOxkkkkkkkk0Kkdx0NWX000OOO0KKKKKKkdkKKK0K0000000K0kdokKK00KXKOOOOOOOOOOOOOO00OkkkO00OOOOOOOOOOOOOOOd:.   \r\n\
+//  .lxkO0OOO0KKXNX0kxkkOkkkO0OooONWX00000OO0KXXKxc:;;:d0K0000000KO:',;:cd0KKXXK0OOOOOOOOOOO00OOkxdxO000OOOOOOOOOOOOOxc.   \r\n\
+//  'okkO00O0O00KXXXXK00K0OkkO0XNWNK00000OOO0XXXXd.....c0KKKKKKKKKk;.',;cd0KKXNNXK0OOOOOOO0OKX00OkxxkO00OOOOOOOOOOOkOOo'   \r\n\
+//  ,okOkOK00O0O000XNNNNNNNNNNNNXK00000kxxk0XXXXXKkddddxO0000000000kkk0KKKKKXXXNNXK0000000000KXX0kxdk00OOOOOOOkkkkkkk0x;.  \r\n\
+// .:dkOO0KKK0000OOO00KXXXXXXKK000000Oxxk0KXKOkkkkkkkkkkOOOOOOOOOO0000KKKKKKXKKKXNXXKK000000000KK0000OOOOOOkddxkkkkkk0Oc.  \r\n\
+// .:dxOOKNKKKKKK0OOO00000000000000OkxkOkxkkxxxxkkkkkkxxxddddooooodddxxxkkO00KKKXXNNXKKKKK0000OOOOOOOOkxdddodxkkkkkkk00d'  \r\n\
+// .cokOOKNNNXXKKKKKKK00000KK0OOOOkkOOkxddkkkkxdol:;,,'...............'',;:clodxkO0KXXK00000000OkkkkkkddddkkOOOOOkkkkOKk:. \r\n\
+// .cdkOOKNNNWWNXXXXKKKKKKKK0OkkkkkkO0Okkxoc;'...                           ...';:ldxkO0OOOOO000OkOOOOOOOOOOOOOOOkkkkOKOo. \r\n\
+// .cdk00KNNNNNNWWWWNNXXXXXK0OOOkkkkkkdc,'.                                       ..,lxkOOOOO0KK00000000000OOOOOOOkkkO00o' \r\n\
+// 'ldk00XNNNNNNWWWWNNNNNNXK0OOkkkkkxo'                                              .,oxOOOOO00KKK0000000000OOOOOOOkO00d; \r\n\
+// ,ldO00NNNNNNNWWWWWNNWNXK0OOkkkkxdc.                                                 .lxkOOOO00KKK00000000000000OOOO00xc.\r\n\
+// ;oxO0KNNNNNNNWWWWNNNNXK0OOkkkkkdc.                                                   .cxOOOOO00KK00000000000000OOOkO0kl.\r\n\
+// :oxOKXNNNNNNWWWNNNNNXK0Okkkkkkdc.                                                     .cxkOOOO00KK0000000000000OOOkkOko,\r\n\
+// cdk0KNNNNNNNNWNNNNXKK0Okkkkkkdl'                                                       .cxkOOOOO00000000000000OOOOkkOkd:\r\n\
+// cdk0XNNNNNNNNNNNNXK00Okkkkkkxl'                                                         .cxkOOOOO000000000000OOOOOkkkkxc\r\n\
+// lxOKNNNNNNNNNNNXK000OkOkkkkxo,                                                           .:dkOOOOOO0000000000OOOOOOkkkkl\r\n\
+// oxOXNNNNNNNNNXK000OOOOOOkkxo,                                                             .:dkOOOOOOO000000000OOOOOkkkko\r\n\
+// okKNNNNNNNNXK000OOOOOOOOkkd,                                                               .:dkOOOOOOOOO0000000OOOOOkkko\r\n\
+// lkKNNNNNNXK0000OOOOOOOOOkd;                                                                 .:dkOOOOOOOOO0000000OOOOOkdc\r\n\
+// :oOKNNNNNK0000OOOOOOOOOkx:                                                                   .:dkOOOOOOOOOO000000OOOkxl,\r\n\
+// .;ok0KXKK000OOOOOOOOOOkx:.                                                                     ;okkOOOOOOOOOOOOOOOOxdc' \r\n\
+//   'cdxOOO0OOOOOOOOOOOkd,                                                                        .:oxkOOOOOOOOOOOkxdc,.  \r\n\
+//    ..:odxkOOOOOOOOkdc,.                                                                           .':odxkkkkkxdoc,..    \r\n\
+//       .,:oxxxxkxdl,.                                                                                 ..,;:cc:;'.        \r\n";
+
+
+
+
 
 volatile int USBH_HID_GamepadDecode_flag = -1;
 static GAMEPAD_Keys_TypeDef0 gp_last0;
@@ -212,10 +266,10 @@ void type_1(GAMEPAD_Keys_TypeDef1 *gp) {
       }
       epm_5x8_flush();
       if(gp->left_1 == 1 && gp->left_2 == 1) {
-        //opt_nmi();
+        opt_nmi();
       }
       if(gp->left_1 == 1 && gp->left_2 == 1 && gp->right_1 == 1 && gp->right_2 == 1) {
-        //opt_reset();
+        opt_reset();
       }
       printf("GamePad type 1 raw data:  0x%08x%08x\r\n", gp[0], gp[1]);
     }
@@ -240,20 +294,21 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
 
     if(p[0] == 0x7F808001 && p[1] == 0x00000F7F){
       USBH_HID_GamepadDecode_flag = 0;
-      printf("\r\n%s", gp_logo);
+      printf("\r\n%s", gp_logo0);
       printf("hit %d\r\n", USBH_HID_GamepadDecode_flag);
       return;
     }
 
     if(p[0] == 0x80007F7F && p[1] == 0x00000F80) {
       USBH_HID_GamepadDecode_flag = 1;
-      printf("\r\n%s", gp_logo);
+      printf("\r\n%s", gp_logo0);
       printf("hit %d\r\n", USBH_HID_GamepadDecode_flag);
       return;
     }
+
     USBH_HID_GamepadDecode_flag = -2;
     printf("hit unknown %d\r\n", USBH_HID_GamepadDecode_flag);
-      return;
+    return;
     }
 
 
@@ -279,21 +334,6 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
     default:
       break;
     }
-
-  //return;
-    // printf("gamepad.axis_y %d\r\n", gp->axis_y);
-    // printf("gamepad.axis_x %d\r\n", gp->axis_x);
-    // printf("gamepad.left_1 %d\r\n", gp->left_1);
-    // printf("gamepad.right_1 %d\r\n", gp->right_1);
-    // printf("gamepad.left_2 %d\r\n", gp->left_2);
-    // printf("gamepad.right_2 %d\r\n", gp->right_2);
-
-    // printf("gamepad.button_1 %d\r\n", gp->button_1);
-    // printf("gamepad.button_2 %d\r\n", gp->button_2);
-    // printf("gamepad.button_3 %d\r\n", gp->button_3);
-    // printf("gamepad.button_4 %d\r\n", gp->button_4);
-
-
   }
 
   // Если устройство мышь
