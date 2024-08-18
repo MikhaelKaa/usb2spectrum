@@ -331,9 +331,15 @@ uint8_t  USBH_FindInterface(USBH_HandleTypeDef *phost, uint8_t Class, uint8_t Su
   pif = (USBH_InterfaceDescTypeDef *)0;
   pcfg = &phost->device.CfgDesc;
 
+    USBH_UsrLog("FClass    : %xh\n", Class);
+    USBH_UsrLog("FSubClass : %xh\n", SubClass);
+    USBH_UsrLog("FProtocol : %xh\n", Protocol);
   while (if_ix < USBH_MAX_NUM_INTERFACES)
   {
     pif = &pcfg->Itf_Desc[if_ix];
+    USBH_UsrLog("Class    : %xh\n", pif->bInterfaceClass);
+    USBH_UsrLog("SubClass : %xh\n", pif->bInterfaceSubClass);
+    USBH_UsrLog("Protocol : %xh\n", pif->bInterfaceProtocol);
     if (((pif->bInterfaceClass == Class) || (Class == 0xFFU)) &&
         ((pif->bInterfaceSubClass == SubClass) || (SubClass == 0xFFU)) &&
         ((pif->bInterfaceProtocol == Protocol) || (Protocol == 0xFFU)))
@@ -673,8 +679,10 @@ USBH_StatusTypeDef  USBH_Process(USBH_HandleTypeDef *phost)
       {
         phost->pActiveClass = NULL;
 
+        USBH_UsrLog("search %hd.", phost->device.CfgDesc.Itf_Desc[0].bInterfaceClass);
         for (idx = 0U; idx < USBH_MAX_NUM_SUPPORTED_CLASS; idx++)
         {
+            USBH_UsrLog("Found %hd.", phost->pClass[idx]->ClassCode);
           if (phost->pClass[idx]->ClassCode == phost->device.CfgDesc.Itf_Desc[0].bInterfaceClass)
           {
             phost->pActiveClass = phost->pClass[idx];
