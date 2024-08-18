@@ -24,7 +24,7 @@
 #include "usb_host.h"
 #include "usbh_core.h"
 #include "usbh_hid.h"
-#include <inttypes.h>
+
 /* USER CODE BEGIN Includes */
 #include "spectrum.h"
 /* USER CODE END Includes */
