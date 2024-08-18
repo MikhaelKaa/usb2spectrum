@@ -127,7 +127,7 @@ ApplicationTypeDef Appli_state = APPLICATION_IDLE;
 #define KEYS(x) (Keyboard_Info->keys[x])
 #define CHECK_KEYS_ARRAY(x) (KEYS(0) == (x) || KEYS(1) == (x) ||  KEYS(2) == (x) ||  KEYS(3) == (x) ||  KEYS(4) == (x))
 
-#define KEY_DBG
+#define KEY_DBG (1U)
 
 typedef enum kempston{
   Right = 0,
@@ -157,16 +157,12 @@ void type_0(GAMEPAD_Keys_TypeDef0 *gp) {
     // Kempston
       if((gp->axis_y < 127) || (gp->button_1 == 1)) {HAL_GPIO_WritePin(KEMPSTON_UP, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_UP, GPIO_PIN_RESET);}
-
       if((gp->axis_y > 127) ) {HAL_GPIO_WritePin(KEMPSTON_DOWN, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_DOWN, GPIO_PIN_RESET);}
-
       if((gp->axis_x < 127) ) {HAL_GPIO_WritePin(KEMPSTON_LEFT, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_LEFT, GPIO_PIN_RESET);}
-
       if((gp->axis_x > 127) ) {HAL_GPIO_WritePin(KEMPSTON_RIGHT, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_RIGHT, GPIO_PIN_RESET);} 
-
       if(gp->button_2 == 1) {HAL_GPIO_WritePin(KEMPSTON_FIRE, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_FIRE, GPIO_PIN_RESET);}
 
@@ -193,10 +189,8 @@ void type_0(GAMEPAD_Keys_TypeDef0 *gp) {
 
       if(gp->right_2 == 1) epm_5x8_add(KEY_ENTER);
       if(gp->right_1 == 1) epm_5x8_add(KEY_R);
-
       if(gp->button_2 == 1) epm_5x8_add(KEY_0_CPARENTHESIS);
       if(gp->button_1 == 1) epm_5x8_add(KEY_9_OPARENTHESIS); 
-
       if(gp->button_play == 1) epm_5x8_add(KEY_P);
       if(gp->button_stop == 1) {
         epm_5x8_add(KEY_LEFTCONTROL);
@@ -218,16 +212,12 @@ void type_1(GAMEPAD_Keys_TypeDef1 *gp) {
     // Kempston
       if((gp->axis_y < 127) || (gp->button_1 == 1)) {HAL_GPIO_WritePin(KEMPSTON_UP, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_UP, GPIO_PIN_RESET);}
-
       if((gp->axis_y > 127) ) {HAL_GPIO_WritePin(KEMPSTON_DOWN, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_DOWN, GPIO_PIN_RESET);}
-
       if((gp->axis_x < 127) ) {HAL_GPIO_WritePin(KEMPSTON_LEFT, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_LEFT, GPIO_PIN_RESET);}
-
       if((gp->axis_x > 127) ) {HAL_GPIO_WritePin(KEMPSTON_RIGHT, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_RIGHT, GPIO_PIN_RESET);} 
-
       if(gp->button_2 == 1) {HAL_GPIO_WritePin(KEMPSTON_FIRE, GPIO_PIN_SET);}
       else {HAL_GPIO_WritePin(KEMPSTON_FIRE, GPIO_PIN_RESET);}
 
@@ -255,10 +245,8 @@ void type_1(GAMEPAD_Keys_TypeDef1 *gp) {
 
       if(gp->right_2 == 1) epm_5x8_add(KEY_ENTER);
       if(gp->right_1 == 1) epm_5x8_add(KEY_R);
-
       if(gp->button_2 == 1) epm_5x8_add(KEY_0_CPARENTHESIS);
       if(gp->button_1 == 1) epm_5x8_add(KEY_9_OPARENTHESIS); 
-
       if(gp->button_play == 1) epm_5x8_add(KEY_P);
       if(gp->button_stop == 1) {
         epm_5x8_add(KEY_LEFTCONTROL);
@@ -386,7 +374,7 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
     //printf ("Key Pressed = %d \t %c\n", key, key);
 
     // Отладочный вывод
-    #ifdef KEY_DBG
+    #if(KEY_DBG == 1U)
     printf ("Keys array: = %d : %d : %d : %d : %d : %d\r\n", \
     Keyboard_Info->keys[0], Keyboard_Info->keys[1], Keyboard_Info->keys[2], \
     Keyboard_Info->keys[3], Keyboard_Info->keys[4], Keyboard_Info->keys[5]);
