@@ -66,8 +66,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LD2_Pin GPIO_PIN_13
-#define LD2_GPIO_Port GPIOC
 #define DV1_Pin GPIO_PIN_0
 #define DV1_GPIO_Port GPIOC
 #define DV2_Pin GPIO_PIN_1
@@ -80,6 +78,8 @@ void Error_Handler(void);
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
 #define USART_RX_GPIO_Port GPIOA
+#define LD2_Pin GPIO_PIN_5
+#define LD2_GPIO_Port GPIOA
 #define RESET_Pin GPIO_PIN_4
 #define RESET_GPIO_Port GPIOC
 #define MAGIC_Pin GPIO_PIN_5
