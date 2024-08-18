@@ -107,46 +107,46 @@ uint32_t                gamepad_report_data[2];
 uint32_t                gamepad_rx_report_buf[2];
 HID_GAMEPAD_Info_TypeDef  gamepad_data;
 
-static uint16_t collect_bits(uint8_t *p, uint16_t offset, uint8_t size, int is_signed) {
-  // mask unused bits of first byte
-  uint8_t mask = 0xff << (offset&7);
-  uint8_t byte = offset/8;
-  uint8_t bits = size;
-  uint8_t shift = offset&7;
+// static uint16_t collect_bits(uint8_t *p, uint16_t offset, uint8_t size, int is_signed) {
+//   // mask unused bits of first byte
+//   uint8_t mask = 0xff << (offset&7);
+//   uint8_t byte = offset/8;
+//   uint8_t bits = size;
+//   uint8_t shift = offset&7;
 
-  uint16_t rval = (p[byte++] & mask) >> shift;
-  mask = 0xff;
-  shift = 8-shift;
-  bits -= shift;
+//   uint16_t rval = (p[byte++] & mask) >> shift;
+//   mask = 0xff;
+//   shift = 8-shift;
+//   bits -= shift;
 
-  // first byte already contained more bits than we need
-  if(shift > size) {
-    // mask unused bits
-    rval &= (1<<size)-1;
-  } else {
-    // further bytes if required
-    while(bits) {
-      mask = (bits<8)?(0xff>>(8-bits)):0xff;
-      rval += (p[byte++] & mask) << shift;
-      shift += 8;
-      bits -= (bits>8)?8:bits;
-    }
-  }
+//   // first byte already contained more bits than we need
+//   if(shift > size) {
+//     // mask unused bits
+//     rval &= (1<<size)-1;
+//   } else {
+//     // further bytes if required
+//     while(bits) {
+//       mask = (bits<8)?(0xff>>(8-bits)):0xff;
+//       rval += (p[byte++] & mask) << shift;
+//       shift += 8;
+//       bits -= (bits>8)?8:bits;
+//     }
+//   }
 
-  if(is_signed) {
-    // do sign expansion
-    uint16_t sign_bit = 1<<(size-1);
-    if(rval & sign_bit) {
-      while(sign_bit) {
-	rval |= sign_bit;
-	sign_bit <<= 1;
-      }
+//   if(is_signed) {
+//     // do sign expansion
+//     uint16_t sign_bit = 1<<(size-1);
+//     if(rval & sign_bit) {
+//       while(sign_bit) {
+// 	rval |= sign_bit;
+// 	sign_bit <<= 1;
+//       }
 
-    }
-  }
+//     }
+//   }
 
-  return rval;
-}
+//   return rval;
+// }
 
 /**
   * @}
@@ -195,7 +195,7 @@ uint8_t *USBH_HID_GetGamepadInfo(USBH_HandleTypeDef *phost)
     //refresh value of joymap and return value
     if(USBH_HID_GamepadDecode(phost)== USBH_OK)
     {
-        return &gamepad_data;
+        return (uint8_t*)&gamepad_data;
     }
     else
     {

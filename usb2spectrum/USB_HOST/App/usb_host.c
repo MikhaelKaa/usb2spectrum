@@ -203,7 +203,7 @@ void type_0(GAMEPAD_Keys_TypeDef0 *gp) {
       if(gp->left_1 == 1 && gp->left_2 == 1 && gp->right_1 == 1 && gp->right_2 == 1) {
         opt_reset();
       }
-      printf("GamePad t0 raw: 0x%08x%08x\r\n", gp[0], gp[1]);
+      printf("GamePad t0 raw: 0x%08lx%08lx\r\n", gp[0], gp[1]);
     }
     memcpy(&gp_last0, gp, sizeof(gp_last0));
 }
@@ -259,7 +259,7 @@ void type_1(GAMEPAD_Keys_TypeDef1 *gp) {
       if(gp->left_1 == 1 && gp->left_2 == 1 && gp->right_1 == 1 && gp->right_2 == 1) {
         opt_reset();
       }
-      printf("GamePad t1 raw: 0x%08x%08x\r\n", gp[0], gp[1]);
+      printf("GamePad t1 raw: 0x%08lx%08lx\r\n", gp[0], gp[1]);
     }
     memcpy(&gp_last1, gp, sizeof(gp_last1));
 }
@@ -278,7 +278,7 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
     // detect
     if(-1 == USBH_HID_GamepadDecode_flag ) {
     printf("\r\n <------> Game pad detect start.\r\n");
-    printf("GamePad raw data:  0x%08x%08x\r\n", p[0], p[1]);
+    printf("GamePad raw data:  0x%08lx%08lx\r\n", p[0], p[1]);
 
     if(p[0] == 0x7F808001 && p[1] == 0x00000F7F){
       USBH_HID_GamepadDecode_flag = 0;

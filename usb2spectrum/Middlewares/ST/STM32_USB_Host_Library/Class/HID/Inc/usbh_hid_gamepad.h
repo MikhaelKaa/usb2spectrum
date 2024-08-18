@@ -169,7 +169,7 @@ GAMEPAD_Keys_TypeDef1;
   */
 USBH_StatusTypeDef USBH_HID_GamepadInit(USBH_HandleTypeDef *phost);
 uint8_t *USBH_HID_GetGamepadInfo(USBH_HandleTypeDef *phost);
-static uint16_t collect_bits(uint8_t *p, uint16_t offset, uint8_t size, int is_signed);
+//static uint16_t collect_bits(uint8_t *p, uint16_t offset, uint8_t size, int is_signed);
 /**
   * @}
   */
