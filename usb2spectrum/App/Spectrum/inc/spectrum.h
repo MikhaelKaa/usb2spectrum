@@ -32,6 +32,7 @@ void epm_5x8_add(uint8_t code);
  * Отправка подготовленного массива кнопок.
  */
 void epm_5x8_flush(void);
+void epm_5x8_flush_ps2(void);
 
 /**
  * @brief 

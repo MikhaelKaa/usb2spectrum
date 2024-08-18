@@ -62,6 +62,7 @@ void DMA1_Channel7_IRQHandler(void);
 void TIM3_IRQHandler(void);
 void SPI2_IRQHandler(void);
 void USART2_IRQHandler(void);
+void SPI3_IRQHandler(void);
 void TIM7_IRQHandler(void);
 void OTG_FS_IRQHandler(void);
 /* USER CODE BEGIN EFP */
@@ -73,5 +74,3 @@ void OTG_FS_IRQHandler(void);
 #endif
 
 #endif /* __STM32L4xx_IT_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

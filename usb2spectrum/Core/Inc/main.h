@@ -66,8 +66,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define B1_Pin GPIO_PIN_13
-#define B1_GPIO_Port GPIOC
+#define LD2_Pin GPIO_PIN_13
+#define LD2_GPIO_Port GPIOC
 #define DV1_Pin GPIO_PIN_0
 #define DV1_GPIO_Port GPIOC
 #define DV2_Pin GPIO_PIN_1
@@ -80,20 +80,37 @@ void Error_Handler(void);
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
 #define USART_RX_GPIO_Port GPIOA
-#define LD2_Pin GPIO_PIN_5
-#define LD2_GPIO_Port GPIOA
 #define RESET_Pin GPIO_PIN_4
 #define RESET_GPIO_Port GPIOC
 #define MAGIC_Pin GPIO_PIN_5
 #define MAGIC_GPIO_Port GPIOC
 #define DV0_Pin GPIO_PIN_0
 #define DV0_GPIO_Port GPIOB
+#define sega_db9_7_sel_Pin GPIO_PIN_11
+#define sega_db9_7_sel_GPIO_Port GPIOB
+#define SPI_A0_Pin GPIO_PIN_13
+#define SPI_A0_GPIO_Port GPIOB
+#define SPI_A1_Pin GPIO_PIN_14
+#define SPI_A1_GPIO_Port GPIOB
+#define sega_db9_9_Pin GPIO_PIN_6
+#define sega_db9_9_GPIO_Port GPIOC
+#define sega_db9_6_Pin GPIO_PIN_7
+#define sega_db9_6_GPIO_Port GPIOC
 #define VBUS_FS_Pin GPIO_PIN_10
 #define VBUS_FS_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
+#define sega_db9_4_Pin GPIO_PIN_6
+#define sega_db9_4_GPIO_Port GPIOB
+#define sega_db9_3_Pin GPIO_PIN_7
+#define sega_db9_3_GPIO_Port GPIOB
+#define sega_db9_2_Pin GPIO_PIN_8
+#define sega_db9_2_GPIO_Port GPIOB
+#define sega_db9_1_Pin GPIO_PIN_9
+#define sega_db9_1_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
@@ -103,5 +120,3 @@ void Error_Handler(void);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

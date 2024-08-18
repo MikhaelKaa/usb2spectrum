@@ -38,6 +38,7 @@
     "functional": "c",
     "tuple": "c",
     "utility": "c",
-    "variant": "c"
+    "variant": "c",
+    "ps2.h": "c"
   },
 }
