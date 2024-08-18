@@ -31,12 +31,13 @@ void ps2_make(uint8_t byte) {
 	}*/
 	if (flag_e0) epm_5x8_add(e0_table_5x8[byte]);
 	else epm_5x8_add(main_table_5x8[byte]);
-	printf("ps2 make %d (0x%2x)\n", byte, byte);
+	printf("ps2 make %d (0x%2x)\r\n", byte, byte);
 }
 
 void ps2_brake(uint8_t byte) {
 	if (flag_e0) epm_5x8_remove(e0_table_5x8[byte]);
 	else epm_5x8_remove(main_table_5x8[byte]);
+	printf("ps2 brake %d (0x%2x)\r\n", byte, byte);
 }
 
 
@@ -68,13 +69,13 @@ void ps2_proc(void) {
 				flag_f0 = false;
 				flag_e0 = false;
 				if (flag_e1 != 0) flag_e1--;
-				epm_5x8_flush_ps2();
+				epm_5x8_flush();
 				break;
 			}
 			ps2_make(temp);
 			flag_e0 = false;
 			if (flag_e1 != 0) flag_e1--;
-			epm_5x8_flush_ps2();
+			epm_5x8_flush();
 			break;
 		}
 	}

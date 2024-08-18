@@ -196,7 +196,7 @@ void type_0(GAMEPAD_Keys_TypeDef0 *gp) {
         epm_5x8_add(KEY_LEFTCONTROL);
         epm_5x8_add(KEY_SPACEBAR);
       }
-      epm_5x8_flush();
+      epm_5x8_flush_with_clear();
       if(gp->left_1 == 1 && gp->left_2 == 1) {
         opt_nmi();
       }
@@ -252,7 +252,7 @@ void type_1(GAMEPAD_Keys_TypeDef1 *gp) {
         epm_5x8_add(KEY_LEFTCONTROL);
         epm_5x8_add(KEY_SPACEBAR);
       }
-      epm_5x8_flush();
+      epm_5x8_flush_with_clear();
       if(gp->left_1 == 1 && gp->left_2 == 1) {
         opt_nmi();
       }
@@ -392,7 +392,7 @@ void USBH_HID_EventCallback(USBH_HandleTypeDef *phost)
     if(KEYS(4)) epm_5x8_add(KEYS(4));
     if(KEYS(5)) epm_5x8_add(KEYS(5));
     
-    epm_5x8_flush();
+    epm_5x8_flush_with_clear();
 
     if(CHECK_KEYS_ARRAY(69)) opt_nmi();
     if(CHECK_KEYS_ARRAY(76) && \
